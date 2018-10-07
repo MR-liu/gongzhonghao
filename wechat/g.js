@@ -9,6 +9,7 @@ module.exports = function (opts) {
     let wechat = new Wechat(opts);
     
     return function* (next) {
+        let that = this;
         let token = opts.token;
         let signature = this.query.signature;
         let nonce = this.query.nonce;
