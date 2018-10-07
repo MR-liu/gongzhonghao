@@ -45,9 +45,32 @@ module.exports = function (opts) {
             let message = util.formatMessage(content.xml)
 
             console.log('message ================== ', message)
-            // if (message.) {
-                
-            // }
+            if (message.MsgType === 'text') {
+                if (message.Event === 'subscribe') {
+                    let now = new Date().getTime();
+
+                    that.status = 200;
+                    that.type = 'application/xml';
+                    that.body = `<xml> 
+                                    <ToUserName>
+                                        < ![CDATA[${message.FromUserName}] ]>
+                                    </ToUserName>
+                                    <FromUserName>
+                                        < ![CDATA[${message.ToUserName}] ]>
+                                    </FromUserName>
+                                    <CreateTime>
+                                        ${now}
+                                    </CreateTime>
+                                    <MsgType>
+                                        < ![CDATA[text] ]>
+                                    </MsgType>
+                                    <Content>
+                                        < ![CDATA[你好,这里是测试] ]>
+                                    </Content>
+                                </xml>`
+                    return
+                }
+            }
         }
 
         if (sha === signature) {
