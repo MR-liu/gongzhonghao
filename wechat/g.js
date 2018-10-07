@@ -1,8 +1,9 @@
 'use strict'
-var getRawBody = require('raw-body')
-let sha1 = require('sha1');
-var Wechat = require('./wechat')
 
+let getRawBody = require('raw-body')
+let sha1 = require('sha1');
+let Wechat = require('./wechat')
+let util = require('./util')
 
 module.exports = function (opts) {
     let wechat = new Wechat(opts);
@@ -31,13 +32,22 @@ module.exports = function (opts) {
             }
 
             // 获取分发的xml数据
-            var data = yield getRawBody(this.req, {
+            let data = yield getRawBody(this.req, {
                 length: this.length,
                 limit: '1mb',
                 encoding: this.charset
             })
 
-            console.log(data.toString())
+            let content = yield util.parseXMLAsync(data)
+
+            console.log('content ================== ', content)
+
+            let message = util.formatMessage(content.xml)
+
+            console.log('message ================== ', message)
+            // if (message.) {
+                
+            // }
         }
 
         if (sha === signature) {

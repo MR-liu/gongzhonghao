@@ -39,6 +39,7 @@ function Wechat(opts) {
         })
 }
 
+// 校验
 Wechat.prototype.isValidAccessToken = function (data) {
     if (!data || !data.access_token || !data.expires_in) {
         return false;
