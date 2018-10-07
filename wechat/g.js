@@ -30,6 +30,7 @@ module.exports = function (opts) {
                 return false
             }
 
+            // 获取分发的xml数据
             var data = yield getRawBody(this.req, {
                 length: this.length,
                 limit: '1mb',
